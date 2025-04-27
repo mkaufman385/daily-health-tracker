@@ -16,7 +16,9 @@ export default function App() {
     <div className="min-h-screen bg-gray-100 p-4">
       <header className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Daily Health Tracker</h1>
-        <Button variant="outline">Log In</Button>
+        <Button className="logInButton" variant="outline">
+          Log In
+        </Button>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
