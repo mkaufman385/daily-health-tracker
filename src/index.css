@@ -213,8 +213,18 @@ index.css
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: ;
+  /* justify-content: ; */
   gap: 0.5rem;
+}
+
+.log-section-spacing {
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.summary-section-spacing {
+  /* padding-bottom: 5px; */
+  margin-bottom: 15px;
 }
 
 /* Chart Placeholder */
@@ -234,6 +244,6 @@ index.css
 /* Footer */
 .app-footer {
   text-align: center;
-  margin-top: 2.5rem;
+  margin-top: 10px;
   color: #718096; /* Tailwind gray-600 */
 }

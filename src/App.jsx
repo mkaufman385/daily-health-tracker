@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import WaterLog from "./features/water/WaterLog";
 // import Header from "./components/Header";
 import "./App.css";
 
@@ -23,12 +24,19 @@ export default function App() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Log Section */}
-        <div className="space-y-4">
-          <Card>
+        <div className="log-section-spacing space-y-4">
+          <Card className="log-section-spacing">
             <CardContent className="p-4 space-y-2">
               <h2 className="text-xl font-semibold">Log</h2>
-              <Button onClick={() => {}}>+ Add Meal</Button>
-              <Button onClick={() => {}}>+ Add Water</Button>
+              <Button onClick={() => {}}>+ Add Calories</Button>
+              <Button
+                onClick={() =>
+                  setLog((prev) => ({ ...prev, water: prev.water + 8 }))
+                }
+              >
+                + Add Water
+              </Button>
+
               <Button onClick={() => {}}>+ Add Workout</Button>
               <Button onClick={() => {}}>+ Add Sleep</Button>
             </CardContent>
@@ -37,11 +45,11 @@ export default function App() {
 
         {/* Summary and Trends Section */}
         <div className="space-y-4">
-          <Card>
+          <Card className="summary-section-spacing">
             <CardContent className="p-4 space-y-2">
               <h2 className="text-xl font-semibold">Today's Summary</h2>
               <p>Calories: --</p>
-              <p>Water: {log.water} oz</p>
+              <WaterLog amount={log.water} />
               <p>Workouts: {log.workouts.length}</p>
               <p>Sleep: {log.sleep} hours</p>
             </CardContent>
@@ -58,7 +66,7 @@ export default function App() {
         </div>
       </div>
 
-      <footer className="text-center mt-10 text-gray-600">
+      <footer className="app-footer text-center mt-10 text-gray-600">
         Keep tracking your health!
       </footer>
     </div>
