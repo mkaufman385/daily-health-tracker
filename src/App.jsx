@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import WaterLog from "./features/water/WaterLog";
+import AddWater from "./features/water/AddWater";
 import AddCalories from "./features/meals/AddCalories";
 import AddSleep from "./features/sleep/AddSleep";
 // import Header from "./components/Header";
@@ -41,13 +41,14 @@ export default function App() {
                     }))
                   }
                 />
-                <Button
-                  onClick={() =>
-                    setLog((prev) => ({ ...prev, water: prev.water + 8 }))
+                <AddWater
+                  onAdd={(value) =>
+                    setLog((prev) => ({
+                      ...prev,
+                      water: prev.water + value,
+                    }))
                   }
-                >
-                  + Add Water
-                </Button>
+                />
                 <Button onClick={() => {}}>+ Add Workout</Button>
                 <AddSleep
                   onAdd={(value) =>
@@ -68,7 +69,7 @@ export default function App() {
             <CardContent className="p-4 space-y-2">
               <h2 className="text-xl font-semibold">Today's Summary</h2>
               <p>Calories: {log.calories}</p>
-              <WaterLog amount={log.water} />
+              <p>Water: {log.water} oz</p>
               <p>Workouts: {log.workouts.length}</p>
               <p>Sleep: {log.sleep} hours</p>
             </CardContent>
