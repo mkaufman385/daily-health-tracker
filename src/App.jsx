@@ -68,7 +68,7 @@ export default function App() {
           <Card className="summary-section-spacing">
             <CardContent className="p-4 space-y-2">
               <h2 className="text-xl font-semibold">Today's Summary</h2>
-              <p>Calories: {log.calories}</p>
+              <p>Calories: {log.calories} kcal</p>
               <p>Water: {log.water} oz</p>
               <p>Workouts: {log.workouts.length}</p>
               <p>Sleep: {log.sleep} hours</p>
