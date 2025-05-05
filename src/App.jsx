@@ -2,11 +2,14 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import WaterLog from "./features/water/WaterLog";
+import AddCalories from "./features/meals/AddCalories";
+import AddSleep from "./features/sleep/AddSleep";
 // import Header from "./components/Header";
 import "./App.css";
 
 export default function App() {
   const [log, setLog] = useState({
+    calories: 0,
     meals: [],
     water: 0,
     workouts: [],
@@ -28,17 +31,33 @@ export default function App() {
           <Card className="log-section-spacing">
             <CardContent className="p-4 space-y-2">
               <h2 className="text-xl font-semibold">Log</h2>
-              <Button onClick={() => {}}>+ Add Calories</Button>
-              <Button
-                onClick={() =>
-                  setLog((prev) => ({ ...prev, water: prev.water + 8 }))
-                }
-              >
-                + Add Water
-              </Button>
 
-              <Button onClick={() => {}}>+ Add Workout</Button>
-              <Button onClick={() => {}}>+ Add Sleep</Button>
+              <div className="flex flex-col gap-4">
+                <AddCalories
+                  onAdd={(value) =>
+                    setLog((prev) => ({
+                      ...prev,
+                      calories: prev.calories + value,
+                    }))
+                  }
+                />
+                <Button
+                  onClick={() =>
+                    setLog((prev) => ({ ...prev, water: prev.water + 8 }))
+                  }
+                >
+                  + Add Water
+                </Button>
+                <Button onClick={() => {}}>+ Add Workout</Button>
+                <AddSleep
+                  onAdd={(value) =>
+                    setLog((prev) => ({
+                      ...prev,
+                      sleep: prev.sleep + value,
+                    }))
+                  }
+                />
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -48,7 +67,7 @@ export default function App() {
           <Card className="summary-section-spacing">
             <CardContent className="p-4 space-y-2">
               <h2 className="text-xl font-semibold">Today's Summary</h2>
-              <p>Calories: --</p>
+              <p>Calories: {log.calories}</p>
               <WaterLog amount={log.water} />
               <p>Workouts: {log.workouts.length}</p>
               <p>Sleep: {log.sleep} hours</p>
