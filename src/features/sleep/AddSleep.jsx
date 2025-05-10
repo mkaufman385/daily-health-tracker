@@ -23,7 +23,7 @@ export default function AddSleep({ onAdd }) {
             type="number"
             value={sleepInput}
             onChange={(e) => setSleepInput(e.target.value)}
-            placeholder="Enter sleep"
+            placeholder="Enter sleep (hrs)"
             className="border rounded px-2 py-1"
           />
           <button
