@@ -21,7 +21,6 @@ export default function App() {
         };
   });
 
-  // Save log to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("dailyLog", JSON.stringify(log));
   }, [log]);
