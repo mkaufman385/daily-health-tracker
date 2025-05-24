@@ -7,10 +7,6 @@ import App from "./App.jsx";
 const domain = import.meta.env.VITE_AUTH0_DOMAIN;
 const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
 
-console.log("Auth0 Config:");
-console.log("Domain:", domain);
-console.log("Client ID:", clientId);
-
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Auth0Provider
