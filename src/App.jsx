@@ -58,7 +58,25 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <header className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Daily Health Tracker</h1>
+        <h1 className="text-2xl font-bold flex items-center gap-2">
+          Daily Health Tracker
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="text-blue-600"
+            style={{ width: "40px", height: "40px" }}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4.5 12.75l6 6 9-13.5"
+            />
+          </svg>
+        </h1>
+
         {isAuthenticated ? (
           <div className="flex flex-col items-end gap-1">
             <Button
