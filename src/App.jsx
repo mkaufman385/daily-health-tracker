@@ -15,6 +15,7 @@ import SleepChart from "./components/charts/SleepChart";
 import "./App.css";
 
 export default function App() {
+  const [dateString, setDateString] = useState("");
   const [log, setLog] = useState(() => {
     const savedLog = localStorage.getItem("dailyLog");
     return savedLog
@@ -27,6 +28,18 @@ export default function App() {
           steps: 0,
         };
   });
+
+  useEffect(() => {
+    const now = new Date();
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const formattedDate = now.toLocaleDateString(undefined, options);
+    setDateString(formattedDate);
+  }, []);
 
   const [visibleChart, setVisibleChart] = useState(null);
 
@@ -76,6 +89,7 @@ export default function App() {
             />
           </svg>
         </h1>
+        <p className="text-sm text-gray-600">{dateString}</p>
 
         {isAuthenticated ? (
           <div className="flex flex-col items-end gap-1">
@@ -203,7 +217,7 @@ export default function App() {
         </>
       ) : (
         <p className="text-center text-gray-600">
-          Please log in to use the tracker.
+          Please log in to track your daily health
         </p>
       )}
     </div>
