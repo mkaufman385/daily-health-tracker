@@ -1,3 +1,255 @@
+// import { useEffect, useState } from "react";
+// import { Card, CardContent } from "@/components/ui/card";
+// import { Button } from "@/components/ui/button";
+// import { useAuth0 } from "@auth0/auth0-react";
+
+// import AddWater from "./features/water/AddWater";
+// import AddCalories from "./features/meals/AddCalories";
+// import AddSleep from "./features/sleep/AddSleep";
+// import AddSteps from "./features/steps/AddSteps";
+// import CaloriesChart from "./components/charts/CaloriesChart";
+// import WaterChart from "./components/charts/WaterChart";
+// import StepsChart from "./components/charts/StepsChart";
+// import SleepChart from "./components/charts/SleepChart";
+
+// import "./App.css";
+
+// export default function App() {
+//   const [dateString, setDateString] = useState("");
+//   const [log, setLog] = useState(() => {
+//     const savedLog = localStorage.getItem("dailyLog");
+//     return savedLog
+//       ? JSON.parse(savedLog)
+//       : {
+//           calories: 0,
+//           meals: [],
+//           water: 0,
+//           workouts: [],
+//           steps: 0,
+//           sleep: 0,
+//         };
+//   });
+
+//   const [weeklyLog, setWeeklyLog] = useState([]);
+//   const [visibleChart, setVisibleChart] = useState(null);
+
+//   const { loginWithRedirect, logout, isAuthenticated, user, isLoading } =
+//     useAuth0();
+
+//   // Set today's date string for display
+//   useEffect(() => {
+//     const now = new Date();
+//     const options = {
+//       weekday: "long",
+//       year: "numeric",
+//       month: "long",
+//       day: "numeric",
+//     };
+//     const formattedDate = now.toLocaleDateString(undefined, options);
+//     setDateString(formattedDate);
+//   }, []);
+
+//   // Save log and update history
+//   useEffect(() => {
+//     const today = new Date().toLocaleDateString(); // "5/27/2025"
+//     const history = JSON.parse(localStorage.getItem("logHistory") || "{}");
+
+//     history[today] = log;
+
+//     localStorage.setItem("dailyLog", JSON.stringify(log));
+//     localStorage.setItem("logHistory", JSON.stringify(history));
+//   }, [log]);
+
+//   // Generate weekly log for charts
+//   useEffect(() => {
+//     const history = JSON.parse(localStorage.getItem("logHistory") || "{}");
+
+//     const sortedDates = Object.keys(history)
+//       .sort((a, b) => new Date(a) - new Date(b))
+//       .slice(-7); // Last 7 days
+
+//     const formatted = sortedDates.map((dateStr) => {
+//       const entry = history[dateStr];
+//       const day = new Date(dateStr).toLocaleDateString(undefined, {
+//         weekday: "short",
+//       });
+
+//       return {
+//         day,
+//         calories: entry.calories || 0,
+//         water: entry.water || 0,
+//         steps: entry.steps || 0,
+//         sleep: entry.sleep || 0,
+//       };
+//     });
+
+//     setWeeklyLog(formatted);
+//   }, [log]);
+
+//   if (isLoading) {
+//     return (
+//       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+//         <p className="text-gray-600 text-lg">Loading...</p>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 p-4">
+//       <header className="flex justify-between items-center mb-6">
+//         <h1 className="text-2xl font-bold flex items-center gap-2">
+//           Daily Health Tracker
+//           <svg
+//             xmlns="http://www.w3.org/2000/svg"
+//             fill="none"
+//             viewBox="0 0 24 24"
+//             strokeWidth="1.5"
+//             stroke="currentColor"
+//             className="text-blue-600"
+//             style={{ width: "24px", height: "24px" }}
+//           >
+//             <path
+//               strokeLinecap="round"
+//               strokeLinejoin="round"
+//               d="M4.5 12.75l6 6 9-13.5"
+//             />
+//           </svg>
+//         </h1>
+//         <p className="text-sm text-gray-600">{dateString}</p>
+
+//         {isAuthenticated ? (
+//           <div className="flex flex-col items-end gap-1">
+//             <Button
+//               onClick={() =>
+//                 logout({ logoutParams: { returnTo: window.location.origin } })
+//               }
+//             >
+//               Log Out
+//             </Button>
+//             <span className="text-sm text-gray-700">Welcome, {user.name}</span>
+//           </div>
+//         ) : (
+//           <Button onClick={() => loginWithRedirect()}>Log In</Button>
+//         )}
+//       </header>
+
+//       {isAuthenticated ? (
+//         <>
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//             {/* Log Section */}
+//             <div className="space-y-4">
+//               <Card>
+//                 <CardContent className="p-4 space-y-2">
+//                   <h2 className="text-xl font-semibold">Log</h2>
+
+//                   <div className="flex flex-col gap-4">
+//                     <AddCalories
+//                       onAdd={(value) =>
+//                         setLog((prev) => ({
+//                           ...prev,
+//                           calories: prev.calories + value,
+//                         }))
+//                       }
+//                     />
+//                     <AddWater
+//                       onAdd={(value) =>
+//                         setLog((prev) => ({
+//                           ...prev,
+//                           water: prev.water + value,
+//                         }))
+//                       }
+//                     />
+//                     <AddSteps
+//                       onAdd={(value) =>
+//                         setLog((prev) => ({
+//                           ...prev,
+//                           steps: prev.steps + value,
+//                         }))
+//                       }
+//                     />
+//                     <AddSleep
+//                       onAdd={(value) =>
+//                         setLog((prev) => ({
+//                           ...prev,
+//                           sleep: prev.sleep + value,
+//                         }))
+//                       }
+//                     />
+//                   </div>
+//                 </CardContent>
+//               </Card>
+//             </div>
+
+//             {/* Summary and Trends Section */}
+//             <div className="space-y-4">
+//               <Card>
+//                 <CardContent className="p-4 space-y-2">
+//                   <h2 className="text-xl font-semibold">Your Daily Overview</h2>
+//                   <p>Calories: {log.calories} kcal</p>
+//                   <p>Water: {log.water} oz</p>
+//                   <p>Steps: {log.steps}</p>
+//                   <p>Sleep: {log.sleep} hours</p>
+//                 </CardContent>
+//               </Card>
+
+//               <Card>
+//                 <CardContent className="p-4">
+//                   <h2 className="text-xl font-semibold mb-2">Trends</h2>
+//                   <div className="space-y-4">
+//                     <div className="flex gap-2 flex-wrap mb-2">
+//                       <Button onClick={() => setVisibleChart("calories")}>
+//                         Calories Chart
+//                       </Button>
+//                       <Button onClick={() => setVisibleChart("water")}>
+//                         Water Chart
+//                       </Button>
+//                       <Button onClick={() => setVisibleChart("steps")}>
+//                         Steps Chart
+//                       </Button>
+//                       <Button onClick={() => setVisibleChart("sleep")}>
+//                         Sleep Chart
+//                       </Button>
+//                       <Button
+//                         onClick={() => setVisibleChart(null)}
+//                         variant="secondary"
+//                       >
+//                         Hide Chart
+//                       </Button>
+//                     </div>
+
+//                     {visibleChart === "calories" && (
+//                       <CaloriesChart data={weeklyLog} />
+//                     )}
+//                     {visibleChart === "water" && (
+//                       <WaterChart data={weeklyLog} />
+//                     )}
+//                     {visibleChart === "steps" && (
+//                       <StepsChart data={weeklyLog} />
+//                     )}
+//                     {visibleChart === "sleep" && (
+//                       <SleepChart data={weeklyLog} />
+//                     )}
+//                   </div>
+//                 </CardContent>
+//               </Card>
+//             </div>
+//           </div>
+
+//           <footer className="text-center mt-10 text-gray-600">
+//             Keep tracking your health!
+//           </footer>
+//         </>
+//       ) : (
+//         <p className="text-center text-gray-600">
+//           Please log in to track your daily health
+//         </p>
+//       )}
+//     </div>
+//   );
+// }
+
+//-----------------------------------------------------------------
+
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -16,77 +268,80 @@ import "./App.css";
 
 export default function App() {
   const [dateString, setDateString] = useState("");
-  const [log, setLog] = useState(() => {
-    const savedLog = localStorage.getItem("dailyLog");
-    return savedLog
-      ? JSON.parse(savedLog)
-      : {
-          calories: 0,
-          meals: [],
-          water: 0,
-          workouts: [],
-          steps: 0,
-          sleep: 0,
-        };
-  });
-
-  const [weeklyLog, setWeeklyLog] = useState([]);
+  const [log, setLog] = useState(null);
+  const [logHistory, setLogHistory] = useState({});
   const [visibleChart, setVisibleChart] = useState(null);
 
   const { loginWithRedirect, logout, isAuthenticated, user, isLoading } =
     useAuth0();
 
-  // Set today's date string for display
+  // Initialize logs from localStorage
   useEffect(() => {
     const now = new Date();
-    const options = {
+
+    const formattedDate = now.toLocaleDateString(undefined, {
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
-    };
-    const formattedDate = now.toLocaleDateString(undefined, options);
+    });
     setDateString(formattedDate);
+
+    const todayKey = now.toLocaleDateString();
+    const storedHistory = JSON.parse(localStorage.getItem("logHistory")) || {};
+
+    // Initialize today's log if missing
+    if (!storedHistory[todayKey]) {
+      storedHistory[todayKey] = {
+        calories: 0,
+        water: 0,
+        steps: 0,
+        sleep: 0,
+      };
+    }
+
+    setLog(storedHistory[todayKey]);
+    setLogHistory(storedHistory);
   }, []);
 
-  // Save log and update history
+  // Update localStorage whenever log changes
   useEffect(() => {
-    const today = new Date().toLocaleDateString(); // "5/27/2025"
-    const history = JSON.parse(localStorage.getItem("logHistory") || "{}");
+    if (!log || !logHistory) return;
 
-    history[today] = log;
+    const todayKey = new Date().toLocaleDateString();
 
-    localStorage.setItem("dailyLog", JSON.stringify(log));
-    localStorage.setItem("logHistory", JSON.stringify(history));
+    if (JSON.stringify(logHistory[todayKey]) !== JSON.stringify(log)) {
+      const updatedHistory = { ...logHistory, [todayKey]: log };
+      setLogHistory(updatedHistory);
+      localStorage.setItem("logHistory", JSON.stringify(updatedHistory));
+    }
   }, [log]);
 
-  // Generate weekly log for charts
-  useEffect(() => {
-    const history = JSON.parse(localStorage.getItem("logHistory") || "{}");
+  // Create weekly log data with 7 full days
+  const weeklyLog = (() => {
+    const result = [];
+    const today = new Date();
 
-    const sortedDates = Object.keys(history)
-      .sort((a, b) => new Date(a) - new Date(b))
-      .slice(-7); // Last 7 days
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(today.getDate() - i);
+      const dateKey = date.toLocaleDateString();
+      const dayName = date.toLocaleDateString(undefined, { weekday: "short" });
 
-    const formatted = sortedDates.map((dateStr) => {
-      const entry = history[dateStr];
-      const day = new Date(dateStr).toLocaleDateString(undefined, {
-        weekday: "short",
-      });
-
-      return {
-        day,
-        calories: entry.calories || 0,
-        water: entry.water || 0,
-        steps: entry.steps || 0,
-        sleep: entry.sleep || 0,
+      const dayLog = logHistory[dateKey] || {
+        calories: 0,
+        water: 0,
+        steps: 0,
+        sleep: 0,
       };
-    });
 
-    setWeeklyLog(formatted);
-  }, [log]);
+      result.push({ day: dayName, ...dayLog });
+    }
 
-  if (isLoading) {
+    return result;
+  })();
+
+  if (isLoading || !log) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <p className="text-gray-600 text-lg">Loading...</p>
@@ -106,7 +361,7 @@ export default function App() {
             strokeWidth="1.5"
             stroke="currentColor"
             className="text-blue-600"
-            style={{ width: "24px", height: "24px" }}
+            style={{ width: "40px", height: "40px" }}
           >
             <path
               strokeLinecap="round"
@@ -137,7 +392,7 @@ export default function App() {
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Log Section */}
-            <div className="space-y-4">
+            <div className="log-section-spacing space-y-4">
               <Card>
                 <CardContent className="p-4 space-y-2">
                   <h2 className="text-xl font-semibold">Log</h2>
@@ -235,7 +490,7 @@ export default function App() {
             </div>
           </div>
 
-          <footer className="text-center mt-10 text-gray-600">
+          <footer className="app-footer text-center mt-10 text-gray-600">
             Keep tracking your health!
           </footer>
         </>
