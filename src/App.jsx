@@ -199,39 +199,44 @@ export default function App() {
                 <CardContent className="p-4">
                   <h2 className="text-xl font-semibold mb-2">Trends</h2>
                   <div className="space-y-4">
-                    <div className="flex gap-2 flex-wrap mb-2">
-                      <Button
-                        onClick={() => setVisibleChart("calories")}
-                        variant={
-                          visibleChart === "calories" ? "default" : "outline"
-                        }
-                      >
-                        Calories Chart
-                      </Button>
-                      <Button
-                        onClick={() => setVisibleChart("water")}
-                        variant={
-                          visibleChart === "water" ? "default" : "outline"
-                        }
-                      >
-                        Water Chart
-                      </Button>
-                      <Button
-                        onClick={() => setVisibleChart("steps")}
-                        variant={
-                          visibleChart === "steps" ? "default" : "outline"
-                        }
-                      >
-                        Steps Chart
-                      </Button>
-                      <Button
-                        onClick={() => setVisibleChart("sleep")}
-                        variant={
-                          visibleChart === "sleep" ? "default" : "outline"
-                        }
-                      >
-                        Sleep Chart
-                      </Button>
+                    <div className="flex flex-col items-center gap-4 mb-4">
+                      {/* Top row: chart buttons */}
+                      <div className="flex flex-wrap justify-center gap-2">
+                        <Button
+                          onClick={() => setVisibleChart("calories")}
+                          variant={
+                            visibleChart === "calories" ? "default" : "outline"
+                          }
+                        >
+                          Calories Chart
+                        </Button>
+                        <Button
+                          onClick={() => setVisibleChart("water")}
+                          variant={
+                            visibleChart === "water" ? "default" : "outline"
+                          }
+                        >
+                          Water Chart
+                        </Button>
+                        <Button
+                          onClick={() => setVisibleChart("steps")}
+                          variant={
+                            visibleChart === "steps" ? "default" : "outline"
+                          }
+                        >
+                          Steps Chart
+                        </Button>
+                        <Button
+                          onClick={() => setVisibleChart("sleep")}
+                          variant={
+                            visibleChart === "sleep" ? "default" : "outline"
+                          }
+                        >
+                          Sleep Chart
+                        </Button>
+                      </div>
+
+                      {/* Bottom row: hide chart button */}
                       <Button
                         onClick={() => setVisibleChart(null)}
                         variant={visibleChart === null ? "default" : "outline"}
