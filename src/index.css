@@ -223,6 +223,11 @@ index.css
   margin-bottom: 5px;
 }
 
+.your-daily-overview-section-spacing {
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
 /* AddCalories {
   border-radius: 8px;
   border: 1px solid transparent;

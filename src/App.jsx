@@ -185,7 +185,7 @@ export default function App() {
 
             {/* Summary and Trends Section */}
             <div className="space-y-4">
-              <Card>
+              <Card className="your-daily-overview-section-spacing">
                 <CardContent className="p-4 space-y-2">
                   <h2 className="text-xl font-semibold">Your Daily Overview</h2>
                   <p>Calories: {log.calories} kcal</p>
