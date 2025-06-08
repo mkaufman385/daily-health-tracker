@@ -145,7 +145,7 @@ export default function App() {
                 <CardContent className="p-4 space-y-2">
                   <h2 className="text-xl font-semibold">Log</h2>
 
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-4 w-full">
                     <AddCalories
                       onAdd={(value) =>
                         setLog((prev) => ({
@@ -154,6 +154,7 @@ export default function App() {
                         }))
                       }
                     />
+
                     <AddWater
                       onAdd={(value) =>
                         setLog((prev) => ({
@@ -162,6 +163,7 @@ export default function App() {
                         }))
                       }
                     />
+
                     <AddSteps
                       onAdd={(value) =>
                         setLog((prev) => ({
@@ -170,6 +172,7 @@ export default function App() {
                         }))
                       }
                     />
+
                     <AddSleep
                       onAdd={(value) =>
                         setLog((prev) => ({
