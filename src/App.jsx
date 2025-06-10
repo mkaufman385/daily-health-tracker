@@ -191,10 +191,18 @@ export default function App() {
               <Card className="your-daily-overview-section-spacing">
                 <CardContent className="p-4 space-y-2">
                   <h2 className="text-xl font-semibold">Your Daily Overview</h2>
-                  <p>Calories: {log.calories} kcal</p>
-                  <p>Water: {log.water} oz</p>
-                  <p>Steps: {log.steps}</p>
-                  <p>Sleep: {log.sleep} hours</p>
+                  <p>
+                    <b>Calories:</b> {log.calories} kcal
+                  </p>
+                  <p>
+                    <b>Water:</b> {log.water} oz
+                  </p>
+                  <p>
+                    <b>Steps:</b> {log.steps}
+                  </p>
+                  <p>
+                    <b>Sleep:</b> {log.sleep} hours
+                  </p>
                 </CardContent>
               </Card>
 
